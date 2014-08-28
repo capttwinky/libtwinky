@@ -13,8 +13,7 @@ MODULE_SETTINGS = type("MODULE_STATE", (object,), {
 })
 
 
-ssh_cmd = "ssh -A -t -o 'StrictHostKeyChecking=no' "
-
+ssh_cmd = "ssh -A -t -o 'StrictHostKeyChecking=no' -i $HOME/.ssh/id_rsa"
 
 def do_mount(target_host, mtpoint, slink = None):
     mtpoint = "{0}/{1}".format(MODULE_SETTINGS.base_dir, mtpoint)
@@ -30,7 +29,7 @@ def do_mount(target_host, mtpoint, slink = None):
     if slink:
         sym_link =  "{0}/{1}".format(MODULE_SETTINGS.base_dir, slink)
         if not os.path.exists(sym_link):
-            os.symlink(mt_point, sym_link)
+            os.symlink(mtpoint, sym_link)
 
 def clear_entry(ip_address = None, link = None):
     if not (ip_address or link):

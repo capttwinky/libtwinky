@@ -10,10 +10,11 @@ import time
 
 @contextlib.contextmanager
 def file_locker(path_in, path_repl, locker_path = None):
-    in_path = os.path.split(path_in)
-    mask_file = os.path.join(path_repl, in_path[-1])
+    in_path = os.path.split(path_repl)
+    #~ mask_file = os.path.join(path_repl, in_path[-1])
+    mask_file = path_repl
     if os.path.exists(mask_file):
-        print 'copy {0} to locker'.format(mask_file)
+        print '\n\tcopy {0} to locker'.format(mask_file)
         if locker_path is not None:
             tmp_dir = locker_path
         else:
@@ -22,7 +23,7 @@ def file_locker(path_in, path_repl, locker_path = None):
         shutil.copy2(mask_file, tmp_file)
     else:
         tmp_file = None
-    print 'copy {0} to {1}'.format(path_in, mask_file)
+    print '\tcopy {0} to {1}\n'.format(path_in, mask_file)
     shutil.copy2(path_in, mask_file)
     yield path_in
     if tmp_file is not None:
@@ -35,11 +36,9 @@ def file_locker(path_in, path_repl, locker_path = None):
 
 def main():
     import sys
-    path_in, path_repl = sys.argv[1:3]
+    path_repl, path_in = sys.argv[1:3]
     with file_locker(path_in, path_repl) as myfl:
-        while True:
-            minput = raw_input("press <enter> to quit")
-            break
+        minput = raw_input("press <enter> to quit")
     print "Done!"
 
 if __name__ =='__main__':
