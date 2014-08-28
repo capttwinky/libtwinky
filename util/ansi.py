@@ -34,6 +34,9 @@ AnsiBack = dict(
 AnsiStyle = dict(
     BRIGHT=1,
     DIM=2,
+    ITALICS=3,
+    UNDERLINE=4,
+    STRIKETHROUGH=9,
     NORMAL=22,
     RESET_ALL=0,
 )
@@ -44,13 +47,18 @@ Style = gen_ansi_dict(AnsiStyle)
 
 @contextmanager
 def print_style(fg='', bg='', style=''):
-    ansi_str = ''.join((Fore.get(fg.upper(), ''), Back.get(bg.upper(), ''), Style.get(style.upper(), ''),))
-    print(ansi_str, end='')
-    yield True
-    print(''.join((Fore['RESET'], Back['RESET'], Style['RESET_ALL'],)), end='')
+    if isinstance(style,str):
+        st_str = Style.get(style.upper(), '') 
+    else:
+        st_str = ''.join([Style.get(sty.upper(), '') for sty in style])
+    ansi_str = ''.join((Fore.get(fg.upper(), ''), Back.get(bg.upper(), ''), st_str,))
+    def ansi_printer(to_print):
+        print(''.join((ansi_str, to_print, Style['RESET_ALL'],)))
+    yield ansi_printer
+    print(Style['RESET_ALL'], end='')
     
 
 def ansi_print(to_print, fg='', bg='', style=''):
-    with print_style(fg=fg, bg=bg, style=style):
-        print(to_print)
+    with print_style(fg=fg, bg=bg, style=style) as printer:
+        printer(to_print)
     return True
