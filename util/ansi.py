@@ -47,18 +47,25 @@ Style = gen_ansi_dict(AnsiStyle)
 
 @contextmanager
 def print_style(fg='', bg='', style=''):
-    if isinstance(style,str):
-        st_str = Style.get(style.upper(), '') 
-    else:
-        st_str = ''.join([Style.get(sty.upper(), '') for sty in style])
-    ansi_str = ''.join((Fore.get(fg.upper(), ''), Back.get(bg.upper(), ''), st_str,))
+    f_str = format_string(fg, bg, style)
     def ansi_printer(to_print):
-        print(''.join((ansi_str, to_print, Style['RESET_ALL'],)))
+        print(''.join((f_str, to_print, Style['RESET_ALL'],)))
     yield ansi_printer
-    print(Style['RESET_ALL'], end='')
-    
 
 def ansi_print(to_print, fg='', bg='', style=''):
     with print_style(fg=fg, bg=bg, style=style) as printer:
         printer(to_print)
     return True
+
+def format_string(fg='', bg='', style=''):
+    if isinstance(style,str):
+        st_str = Style.get(style.upper(), '') 
+    else:
+        st_str = ''.join([Style.get(sty.upper(), '') for sty in style])
+    return ''.join((Fore.get(fg.upper(), ''), Back.get(bg.upper(), ''), st_str,))
+
+def ansi_string(to_print, fg='', bg='', style='', reset=True):
+    a_str = ''.join((format_string(fg, bg, style),to_print))
+    if reset:
+        a_str += Style['RESET_ALL']
+    return a_str
