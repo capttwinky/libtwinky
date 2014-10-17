@@ -22,10 +22,7 @@ LOG_TARGET = None
 class Echo(DatagramProtocol):
 
     def datagramReceived(self, data, (host, port)):
-        #~ log.msg("received %r from %s:%d" % (data, host, port))
-        #~ import ipdb; ipdb.set_trace()
         log.msg("{}:{} {}".format(host, port, data))
-        self.transport.write(data, (host, port))
 
 def port_reporter(listener):
     log.msg('{0} listening for {1.type} at {1.host}:{1.port}'.format(
