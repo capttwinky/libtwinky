@@ -3,11 +3,8 @@
 #
 #  udp_logger.py
 #  
-#  echo udp packets
-#  
-#  © 2014-05-08 tinyco 
-#      Joel McGrady <jmcgrady@tinyco.com>
-#  
+#  log udp packets
+ 
 
 import sys
 
