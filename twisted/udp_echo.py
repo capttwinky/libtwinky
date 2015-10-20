@@ -5,9 +5,6 @@
 #  
 #  echo udp packets
 #  
-#  © 2014-05-08 tinyco 
-#      Joel McGrady <jmcgrady@tinyco.com>
-#  
 
 LISTEN_PORT = 8125
 
