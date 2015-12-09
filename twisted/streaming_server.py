@@ -1,15 +1,5 @@
 #!/usr/bin/env python
 
-# Copyright (c) Twisted Matrix Laboratories.
-# See LICENSE for details.
-
-"""
-This is a sample implementation of a Twisted push producer/consumer system. It
-consists of a TCP server which asks the user how many random integers they
-want, and it sends the result set back to the user, one result per line,
-and finally closes the connection.
-"""
-
 from sys import stdout
 from random import randrange
 
