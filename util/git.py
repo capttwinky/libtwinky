@@ -1,13 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-#  git.py
-#  
-#  this is a default description of this file
-#  
-#  © 2014-09-26 tinyco 
-#      Joel McGrady <jmcgrady@tinyco.com>
-#  
 
 
 from dulwich import repo
