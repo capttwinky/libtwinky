@@ -9,9 +9,6 @@
 #
 #  BackoffLimiter := throttle calls made by the requests library specifically,
 #   increasing wait time between successive attempts
-#  
-#  © 2014-05-09 tinyco 
-#      Joel McGrady <jmcgrady@tinyco.com>
 
 import time
 import functools
